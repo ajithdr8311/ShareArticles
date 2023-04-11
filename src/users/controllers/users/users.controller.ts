@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Post, Put, Redirect, Render, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Redirect, Render, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/createUser.dto';
 import { LoginUserDetailsDto } from 'src/users/dto/loginUserDetails.dto';
 import { UpdateUserDto } from 'src/users/dto/updateUser.dto';
@@ -73,12 +73,17 @@ export class UsersController {
 
     @Post('login')
     async findUserInDatabase(@Body() loginUserDetailsDto: LoginUserDetailsDto) {
-        const isUserExist = await this.userService.findUserInDatabase(loginUserDetailsDto);
-        if(isUserExist) {
-            return { "msg": "Logged In successfully" }
-        } else {
-            return { "msg": "Incorrect email or password" }
-        }
+        // const isUserExist = await this.userService.findUserInDatabase(loginUserDetailsDto);
+        // if(isUserExist) {
+        //     return { "msg": "Logged In successfully" }
+        // } else {
+        //     throw new HttpException(
+        //         'Incorrect Password',
+        //         HttpStatus.UNAUTHORIZED
+        //     )
+        // }
+
+        return this.userService.findUserInDatabase(loginUserDetailsDto);
     }
 
     @Put(':id')
@@ -99,5 +104,26 @@ export class UsersController {
         } else {
             return { "msg": `User with ID ${id} does not exist` }
         }
+    }
+
+
+    // Follow User
+    @Post(':id/follow/:userId')
+    async updateFollow(
+        @Param('id', ParseIntPipe) id: number,
+        @Param('userId', ParseIntPipe) userId: number
+    ) {
+        const result = await this.userService.updateFollower('follow', id, userId);
+        return result;
+    }
+
+    // Unfollow User
+    @Post(':id/unfollow/:userId')
+    async updateUnfollow(
+        @Param('id', ParseIntPipe) id: number,
+        @Param('userId', ParseIntPipe) userId: number
+    ) {
+        const result = await this.userService.updateFollower('unfollow', id, userId);
+        return result;
     }
 }

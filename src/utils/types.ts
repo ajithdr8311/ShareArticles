@@ -12,3 +12,13 @@ export type UpdateUserParams = {
     password: string;
     bio: string;   
 }
+
+export type CreateUserPostParams = {
+    title: string;
+    content: string;
+}
+
+export type UpdatePostParams = {
+    title: string;
+    content: string;
+}
