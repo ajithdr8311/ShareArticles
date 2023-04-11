@@ -44,7 +44,7 @@ export class UsersService {
         } else {
             const isCorrectPassword = await bcrypt.compare(loginUserDetailsDto.password, user[0].password);
             if(isCorrectPassword) {
-                return HttpStatus.OK;
+                return { statusCode: HttpStatus.OK, message: 'Logged In Successfully!'}
             } else {
                 this.throwException(401, 'Invalid Password');
             }
@@ -75,7 +75,7 @@ export class UsersService {
             password
         });
         await this.userRepository.save(newUser);
-        return HttpStatus.CREATED;
+        return {statusCode: HttpStatus.CREATED, message: 'Registered Successfully'}
     }
 
     updateUser(id: number, userDetails: UpdateUserParams) {

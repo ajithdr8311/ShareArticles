@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* navbar */
+.navbar, .navbar-register {
+    height: 60px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.navbar svg {
+    width: 150px;
+    position: relative;
+    left: 20px;
+    top: 15px;
+}
+
+.navbar-register svg {
+    width: 180px;
+    position: relative;
+    top: 15px;
+}
+
+.nav-links {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.btn-write, .btn-register, .btn-signin {
+    width: 4.37rem;
+    padding: 0.5rem;
+    border: none;
+    letter-spacing: 0.05rem;
+    border-radius: 1.5rem;
+    color: white;
+    background: #2563eb;
+    margin: 0 0.1rem;
+}
+
+.btn-register {
+    width: 5.5rem;
+}
+
+.btn-write:hover, .btn-register, .btn-signin {
+    cursor: pointer;
+}
+
+
+/* SignUp page */
+.navbar-register {
+    text-align: center;
+}
+
+.body-register {
+    background: #fbfbfb;
+}
+
+.logo-register:hover {
+    cursor: pointer;
+}
+
+.signup-section, .login-section {
+    text-align: center;
+    margin-top: 5rem;
+}
+
+.signup-section h3, .login-section h3 {
+    font-size: x-large;
+    font-family: Arial, Helvetica, sans-serif;
+    background: -webkit-linear-gradient(#2563eb, #9333ea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.registeration-form, .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registeration-form input, textarea, .login-form input {
+    width: 30rem;
+    height: 2.5rem;
+    color: rgb(90, 86, 86);
+    background: white;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    border: none;
+    border-radius: 2rem;
+}
+
+.registeration-form textarea {
+    min-width: 30rem;
+    max-width: 30rem;
+    overflow-y: hidden;
+}
+
+.registeration-form input:focus, textarea:focus, .login-form input:focus {
+    outline: none;
+    border-bottom: 2px solid #2563eb;
+}
+
+.submit-register, .submit-login {
+    width: 10rem;
+    height: 2rem;
+    margin-top: 1.8rem;
+    border: none;
+    border-radius: 1.5rem;
+    background: #2563eb;
+    color: white;
+    font-size: 0.85rem;
+    letter-spacing: 0.05rem;
+}
+
+.submit-register:hover , .submit-login:hover {
+    cursor: pointer;
+}
+
+.status-reg, .status-login {
+    margin-top: 1rem;
+    color: red;
+}
