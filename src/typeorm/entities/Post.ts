@@ -17,10 +17,10 @@ export class Post {
     @Column()
     content: string;
 
-    @Column({ default: new Date() })
+    @Column({ default: () => 'NOW()' })
     createdAt: Date;
 
-    @Column({ default: new Date() })
+    @Column({ default: () => 'NOW()' })
     updatedAt: Date;
 
     @ManyToOne(() => User, (user) => user.posts)

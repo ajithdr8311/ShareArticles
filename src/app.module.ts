@@ -15,12 +15,12 @@ import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
-    type: 'postgres',
+    type: 'DATA_SOURCE',
     host: 'localhost',
-    port: 5432,
-    username: 'testuser',
-    password: '1234',
-    database: 'hashnode',
+    port: 1234,
+    username: 'USERNAME',
+    password: 'PASSWORD',
+    database: 'DB_NAME',
     entities: [User, Post, Follower, Like],
     synchronize: true,
   }), 
