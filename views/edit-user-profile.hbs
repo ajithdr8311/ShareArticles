@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit | Profile</title>
+    <link rel="stylesheet" href="/stylesheets/edit-user-profile.css">
+</head>
+<body class="edit-profile-body">
+    <span class="user-id" style="display: none;">{{id}}</span>
+
+    <section class="update-user-profile">
+        <h2>Edit Profile</h2>
+        <form>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" class="form-control edit-username" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-control edit-email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control edit-password">
+            </div>
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" class="form-control edit-bio" placeholder="Enter bio"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary edit-submit">Save Changes</button>
+        </form>
+        <span class="error-message"></span>
+    </section>
+    
+    <script src="/js/edit-profile.js"></script>
+</body>
+</html>

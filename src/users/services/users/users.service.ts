@@ -44,7 +44,7 @@ export class UsersService {
         } else {
             const isCorrectPassword = await bcrypt.compare(loginUserDetailsDto.password, user[0].password);
             if(isCorrectPassword) {
-                return { statusCode: HttpStatus.OK, message: 'Logged In Successfully!'}
+                return user[0];
             } else {
                 this.throwException(401, 'Invalid Password');
             }
@@ -53,6 +53,12 @@ export class UsersService {
 
 
     async createUser(userDetails: CreateUserParams) {
+
+        const { username, email, password } = userDetails;
+        if(!username || !email || !password) {
+            this.throwException(400, 'Enter all fields');
+        }
+
         const user = await this.userRepository.find({
             where: [
                 {username: userDetails.username},
@@ -68,19 +74,44 @@ export class UsersService {
         }
 
         const salt = await bcrypt.genSalt();
-        const password = await bcrypt.hash(userDetails.password, salt);
+        const hashedPassword = await bcrypt.hash(userDetails.password, salt);
 
         const newUser = this.userRepository.create({
             ...userDetails,
-            password
+            password: hashedPassword
         });
         await this.userRepository.save(newUser);
         return {statusCode: HttpStatus.CREATED, message: 'Registered Successfully'}
     }
 
-    updateUser(id: number, userDetails: UpdateUserParams) {
-        return this.userRepository.update({ id }, { ...userDetails });
+    
+    // Update user
+    async updateUser(id: number, userDetails: UpdateUserParams) {
+        const user = await this.userRepository.find({
+            where: [
+                { username: userDetails.username },
+                { email: userDetails.email }
+            ]
+        });
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(userDetails.password, salt);
+
+        if(user.length == 0 || user[0].id == id) {
+            return this.userRepository.update({id}, {
+                username: userDetails.username,
+                email: userDetails.email,
+                password: hashedPassword,
+                bio: userDetails.bio
+            });
+        } else {
+            if(user[0].username == userDetails.username) {
+                throw new HttpException('Username already exists!', HttpStatus.BAD_REQUEST);
+            } else if(user[0].email == userDetails.email) {
+                throw new HttpException('Email already exists!', HttpStatus.BAD_REQUEST)
+            }
+        }
     }
+
 
     deleteUser(id: number) {
         return this.userRepository.delete({id});
@@ -134,6 +165,13 @@ export class UsersService {
 
     // Throw error
     throwException(status: number, message: string) {
+
+        if(status == 400) {
+            throw new HttpException(
+                message,
+                HttpStatus.BAD_REQUEST
+            )
+        }
 
         if(status == 401) {
             throw new HttpException(

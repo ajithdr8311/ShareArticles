@@ -14,6 +14,11 @@ export class PostsController {
         return posts; 
     }
 
+    @Get(':id')
+    async getPostById(@Param('id', ParseIntPipe) id: number) {
+        return this.postService.getPostById(id);
+    }
+
     @Get(':id/posts')
     getUserPostsById(@Param('id', ParseIntPipe) id: number) {
         return this.postService.getUserPostsById(id)
@@ -34,7 +39,7 @@ export class PostsController {
         @Param('postId', ParseIntPipe) postId: number,
         @Body() updatePostDto: UpdatePostDto
     ) {
-
+        
         const result = await this.postService.updatePostById(id, postId, updatePostDto);
         if(result.affected > 0) {
             return { "msg": `Post Updated Successfully!!` }
@@ -47,31 +52,26 @@ export class PostsController {
         @Param('postId', ParseIntPipe) postId: number
         ) {
 
-            const result = await this.postService.deletePostById(id, postId);
-            if(result.affected > 0) {
-                return { "msg": `Post Deleted Successfully!!` }
-            }
+            return await this.postService.deletePostById(id, postId);
         }
 
 
-    // Like a Post
-    @Post(':id/posts/:postId/like')
-    @Post(':id/posts/:postId/dislike')
+    // Get like status of a user
+    @Get(':id/posts/:postId')
+    async getLikeStatus(
+        @Param('id', ParseIntPipe) id: number,
+        @Param('postId', ParseIntPipe) postId: number
+    ) {
+        return this.postService.getLikeStatus(id, postId);
+    }
+
+    // Update Like
+    @Post(':id/posts/:postId')
     async updateLike(
         @Param('id', ParseIntPipe) id: number,
         @Param('postId', ParseIntPipe) postId: number
     ) {
-        const result = await this.postService.updateLikes(id, postId);
-        return result;
+        
+        return this.postService.updateLikes(id, postId)
     }
-
-    // Dislike a Post
-    // @Post(':id/posts/:postId/unlike')
-    // async unLikePost(
-    //     @Param('id', ParseIntPipe) id: number,
-    //     @Param('postId', ParseIntPipe) postId: number
-    // ) {
-    //     const result = await this.postService.updateLikes(id, postId);
-    //     return result;
-    // }
 }

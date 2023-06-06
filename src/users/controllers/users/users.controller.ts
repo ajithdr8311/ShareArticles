@@ -1,18 +1,34 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Redirect, Render, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Redirect, Render, Req, Res, UnauthorizedException, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/createUser.dto';
 import { LoginUserDetailsDto } from 'src/users/dto/loginUserDetails.dto';
 import { UpdateUserDto } from 'src/users/dto/updateUser.dto';
 import { UsersService } from 'src/users/services/users/users.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller('users')
 export class UsersController {
-    constructor(private userService: UsersService) {}
+    constructor(
+        private userService: UsersService,
+        private jwtService: JwtService
+        ) {}
 
-    @Get()
-    async getUsers() {
-        const users = await this.userService.findUsers();
-        return users;
+    @Get('/activeuser')
+    async activeUser(@Req() request: Request) {
+        try {
+            const cookie = request.cookies['jwt'];
+            const data = await this.jwtService.verifyAsync(cookie);
+            if(!data) {
+                throw new UnauthorizedException();
+            }
+
+            const user = await this.userService.findUserById(data.id);
+            const { password, ...result } = user[0];
+            return result;
+
+        } catch(err) {
+            throw new UnauthorizedException();
+        }
     }
 
     @Get(':id')
@@ -28,39 +44,11 @@ export class UsersController {
         }
     }
 
-    // @Get('register')
-    // @Render('register')
-    // showRegisterPage() {
-
-    // }
-
-    // @Get('user/login')
-    // @Render('login')
-    // showLoginPage() {
-
-    // }
-
-    // @Post('user/register')
-    // async root(
-    //     @Res() res: Response, 
-    //     @Body() createUserDto: CreateUserDto
-    //     ) {
-    //         const { username, email, password } = { ...createUserDto }
-    //         if(!username || !email || !password) {
-    //             return res.render(
-    //                 'register',
-    //                 { 'error_message': 'Please fill all the fields'} 
-    //             ) 
-    //         } else {
-    //             const fileName = await this.userService.createUser(createUserDto);
-    //             console.log('data added successfully');
-                
-    //             return res.render(
-    //                 'login',
-    //                 {}
-    //             )
-    //         }
-    //     }
+    @Get()
+    async getUsers() {
+        const users = await this.userService.findUsers();
+        return users;
+    }
 
     @Post('register')
     async createUser(
@@ -72,18 +60,25 @@ export class UsersController {
 
 
     @Post('login')
-    async findUserInDatabase(@Body() loginUserDetailsDto: LoginUserDetailsDto) {
-        // const isUserExist = await this.userService.findUserInDatabase(loginUserDetailsDto);
-        // if(isUserExist) {
-        //     return { "msg": "Logged In successfully" }
-        // } else {
-        //     throw new HttpException(
-        //         'Incorrect Password',
-        //         HttpStatus.UNAUTHORIZED
-        //     )
-        // }
+    async findUserInDatabase(
+        @Body() loginUserDetailsDto: LoginUserDetailsDto,
+        @Res({ passthrough: true }) response: Response
+        ) {
+        const user = await this.userService.findUserInDatabase(loginUserDetailsDto);
+        const jwt = await this.jwtService.signAsync({ id: user.id });
+        response.cookie('jwt', jwt, { httpOnly: true });
+        return {
+            statusCode: 200,
+            message: 'Logged In'
+        };
+    }
 
-        return this.userService.findUserInDatabase(loginUserDetailsDto);
+    @Post('logout')
+    async logout(@Res({ passthrough: true }) response: Response) {
+        response.clearCookie('jwt');
+        return {
+            message: 'Logout Successful!!'
+        }
     }
 
     @Put(':id')
@@ -91,8 +86,7 @@ export class UsersController {
         @Param('id', ParseIntPipe) id: number, 
         @Body() updateUserDto: UpdateUserDto
         ) {
-        await this.userService.updateUser(id, updateUserDto)
-        return { "msg": `User with ${id} got updated` }
+        return await this.userService.updateUser(id, updateUserDto);
     }
 
 

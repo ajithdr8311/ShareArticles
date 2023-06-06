@@ -1,38 +1,46 @@
-const writeBtn = document.querySelector('.btn-write');
-const registerBtn = document.querySelector('.btn-register');
-const loginBtn = document.querySelector('.btn-signin');
+
+const logoutBtn = document.querySelector('.btn-logout');
+const userIcon = document.querySelector('.user-icon');
 const blogsArea = document.querySelector('.allBlogs');
 const blogEle = document.querySelector('.all-blogs-list');
 
 
-writeBtn.addEventListener('click', () => {
-    window.location.href = '/onboard';
+
+logoutBtn.addEventListener('click', () => {
+    fetch('/users/logout', {method: 'POST'})
+        .then(res => res.json())
+        .then(data => {
+            if(data.message) {
+                window.location.href = '/';
+            }
+        })
+        .catch(err => log(err));
 })
 
-registerBtn.addEventListener('click', () => {
-    window.location.href = '/onboard';
-})
 
-loginBtn.addEventListener('click', () => {
-    window.location.href = '/signin';
-})
-
-fetch('/users/activeuser')
+fetch('users/activeuser')
     .then(res => res.json())
     .then(data => {
-        if(!data.statusCode) {
-            window.location.href = 'home';
+        console.log(data);
+        if(data.statusCode) {
+            window.location.href = '/';
+            return;
         }
+
+        userIcon.setAttribute('title', data.username);
+        userIcon.addEventListener('click', () => {
+            window.location.href = `/profile/${data.id}`
+        })
         // console.log(data);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err))
+
 
 fetch('/user')
     .then(res => res.json())
     .then(data => {
-        data.sort((blog1, blog2) => blog2.likes.length - blog1.likes.length);
-        // console.log(data);
-        populateData(data);
+        data.sort((blog1, blog2) => blog2.likes.length - blog1.likes.length)
+        populateData(data)
     })
     .catch(err => console.log(err));
 
@@ -70,10 +78,6 @@ function createLayout(element, blogDetails) {
     userNameEle.classList.add('blog-username');
     userNameEle.setAttribute('post-id', blogDetails.id);
     userNameEle.textContent = '@'+blogDetails.user;
-
-    // userNameEle.addEventListener('click', (e) => {
-    //     console.log(e.target);
-    // })
     
     const updatedTimeEle = document.createElement('span');
     updatedTimeEle.classList.add('blog-updatedTime');

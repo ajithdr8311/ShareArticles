@@ -7,6 +7,7 @@
 /* navbar */
 .navbar, .navbar-register {
     height: 60px;
+    background: white;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -37,6 +38,7 @@
     border-radius: 1.5rem;
     color: white;
     background: #2563eb;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
     margin: 0 0.1rem;
 }
 
@@ -44,18 +46,30 @@
     width: 5.5rem;
 }
 
-.btn-write:hover, .btn-register, .btn-signin {
+.btn-register:hover, .btn-signin:hover, .btn-logout:hover {
     cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
 }
 
+.btn-write:hover, .btn-write-home:hover {
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.body-index {
+    background: #F4EEE0;
+}
 
 /* SignUp page */
 .navbar-register {
     text-align: center;
+    background: white;
 }
 
-.body-register {
-    background: #fbfbfb;
+.body-register, .body-login {
+    background: #F0F0F0;
 }
 
 .logo-register:hover {
@@ -81,7 +95,7 @@
     align-items: center;
 }
 
-.registeration-form input, textarea, .login-form input {
+.registeration-form input, .bio-reg, .login-form input {
     width: 30rem;
     height: 2.5rem;
     color: rgb(90, 86, 86);
@@ -94,13 +108,13 @@
     border-radius: 2rem;
 }
 
-.registeration-form textarea {
+.registeration-form .bio-reg {
     min-width: 30rem;
     max-width: 30rem;
     overflow-y: hidden;
 }
 
-.registeration-form input:focus, textarea:focus, .login-form input:focus {
+.registeration-form input:focus, .bio-reg:focus, .login-form input:focus {
     outline: none;
     border-bottom: 2px solid #2563eb;
 }
@@ -115,10 +129,13 @@
     color: white;
     font-size: 0.85rem;
     letter-spacing: 0.05rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .submit-register:hover , .submit-login:hover {
     cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
 }
 
 .status-reg, .status-login {
@@ -127,3 +144,177 @@
 }
 
 
+
+/* Index Page */
+.all-blogs-list {
+    width: 70%;
+    margin: 3rem auto;
+}
+
+.individual-blog {
+    border-radius: 1rem;
+    background: white;
+    padding: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.2);
+}
+
+.blog-username {
+    color: #0f172a;
+    font-size: 0.9rem;
+    font-family: sans-serif;
+    margin: 0.1rem 0;
+}
+
+.blog-updatedTime {
+    color: #64748b;
+    margin: 0.3rem 0;
+}
+
+.blog-title {
+    color: #0f172a;
+    margin: 0.3rem 0;
+}
+
+.blog-content {
+    color: #475569;
+    margin: 0.3rem 0;
+}
+
+.blog-likes {
+    color: #334155;
+    margin: 0.3rem 0;
+}
+
+
+
+/* Home page */
+.btn-write-home, .btn-logout {
+    width: 4.37rem;
+    padding: 0.5rem;
+    border: none;
+    letter-spacing: 0.05rem;
+    border-radius: 1.5rem;
+    color: white;
+    background: #2563eb;
+    margin: 0 0.1rem;
+    position: relative;
+    bottom: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn-write-home:hover, .btn-logout:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+}
+
+.user-icon {
+    width: 1.7rem;
+    height: 1.7rem;
+    border: none;
+    border-radius: 50%;
+    position: relative;
+    top: 0.08rem;
+    background: gray;
+    margin: 0 0.2rem;
+}
+
+.user-icon:hover {
+    cursor: pointer;
+}
+
+/* User Profile */
+.profile-section span {
+    display: block;
+    padding: 0.5rem 2rem;
+}
+
+.posts-create {
+    width: 4rem;
+    height: 2rem;
+    margin: 1rem 2rem;
+    border: none;
+    background: rgb(124, 190, 25);
+    color: white;
+}
+
+.posts-create:hover {
+    cursor: pointer;
+}
+
+.posts-create:focus {
+    border: 2px solid white;
+}
+
+.blog-edit:hover, .blog-delete:hover {
+    cursor: pointer;
+}
+
+.blog-edit {
+    display: block;
+    width: 4rem;
+    height: 2rem;
+    margin-top: 0.3rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+}
+
+.blog-delete {
+    width: 4rem;
+    height: 2rem;
+    margin-top: 0.3rem;
+    background: rgb(246, 58, 58);
+    color: white; 
+    border: none;  
+}
+
+
+/* Edit Post */
+
+.edit-blog-body, .create-blog-body {
+    padding: 1rem;
+}
+
+.edit-blog-title * , .edit-blog-description *, .create-blog-title *, .create-blog-description *{
+    display: block;
+}
+
+.edit-post-title, .create-post-title {
+    margin: 1rem;
+    width: 80%;
+    min-width: 50%;
+    max-width: 80%;
+    height: 2rem;
+    font-size: medium;
+}
+
+.edit-post-content, .create-post-content {
+    margin: 1rem;
+    width: 80%;
+    min-width: 50%;
+    max-width: 80%;
+}
+
+.edit-post-content, .create-post-content {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+
+.edit-submit, .create-submit {
+    margin: 1rem;
+    padding: 0.5rem;
+    background: rgb(18, 88, 18);
+    color: white;
+    border: none;
+}
+
+.edit-submit:hover, .create-submit:hover {
+    cursor: pointer;
+}
+
+.edit-submit:focus, .create-submit:focus {
+    border: 1px solid black;
+}

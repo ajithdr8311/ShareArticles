@@ -35,7 +35,7 @@ loginBtn.addEventListener('click', (event) => {
         } else if(data.statusCode === 200) {
             statusMessage.style.color = 'green'
             statusMessage.textContent = data.message;
-            window.location.href = '/';
+            window.location.href = '/home';
         }
     })
     .catch(err => console.log(err))

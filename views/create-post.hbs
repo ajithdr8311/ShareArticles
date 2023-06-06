@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> New Blog </title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/create-post.css">
+</head>
+<body class="create-blog-body">
+    
+    <span class="user-id" style="display: none">{{id}}</span>
+
+    <section class="create-blog-title">
+        <label for="title">Title:</label>
+        <input type="text" class="create-post-title" id="title">
+    </section>
+    
+
+    <section class="create-blog-description">
+        <label for="description">Content:</label>
+        <textarea name="content" class="create-post-content" id="description"></textarea>
+    </section>
+
+    <span class="error-message-create" style="color: red; display: block;"></span>
+    <button class="create-submit"> Publish </button>
+
+    <script src="/js/create-post.js"></script>
+</body>
+</html>

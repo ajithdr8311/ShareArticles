@@ -5,9 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/home-style.css">
     <title> Hashnode </title>
 </head>
-<body class="body-index">
+<body class="body-home">
     
     <section class="navbar">
         <nav>
@@ -17,20 +18,19 @@
             </seaction>
 
             <section class="nav-links">
-                <button class="btn-write"> Write </button>
-                <button class="btn-register"> Register </button>
-                <button class="btn-signin"> Signin </button>
+                {{!-- <button class="btn-write-home"> Write </button> --}}
+                <button class="btn-logout"> Logout </button>
+                <button class="user-icon" title="username"></button>
             </section>
 
+            <section class="allBlogs">
+                <div class="all-blogs-list"> </div>
+            </section>
         </nav>
     </section>
 
-    <section class="allBlogs">
-        <div class="all-blogs-list">
+    <section class="blogs"></section>
 
-        </div>
-    </section>
-
-    <script src="/js/index.js"></script>
+    <script src="/js/home.js"></script>
 </body>
 </html>

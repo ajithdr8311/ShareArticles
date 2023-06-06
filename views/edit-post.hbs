@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Edit Blog </title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/edit-post.css">
+</head>
+<body class="edit-blog-body">
+    
+    <span class="post-id" style="display: none">{{id}}</span>
+
+    <section class="edit-blog-title">
+        <label for="title">Title:</label>
+        <input type="text" class="edit-post-title" id="title">
+    </section>
+    
+
+    <section class="edit-blog-description">
+        <label for="description">Content:</label>
+        <textarea name="content" class="edit-post-content" cols="30" rows="10" id="description"></textarea>
+    </section>
+
+    <button class="edit-submit">Save changes</button>
+
+    <script src="/js/edit-post.js"></script>
+</body>
+</html>

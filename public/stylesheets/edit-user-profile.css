@@ -1,0 +1,75 @@
+/* Edit Profile form */
+
+.edit-profile-body {
+  background: #f0f0f0;
+}
+
+.update-user-profile {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: auto;
+    padding: 20px;
+    width: 400px;
+  }
+  
+  .update-user-profile h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  
+  .update-user-profile form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .update-user-profile .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .update-user-profile label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .update-user-profile input[type="text"],
+  .update-user-profile input[type="email"],
+  .update-user-profile input[type="password"],
+  .update-user-profile textarea {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    padding: 10px;
+    width: 90%;
+  }
+  
+  .update-user-profile textarea {
+    height: 120px;
+    resize: vertical;
+  }
+  
+  .update-user-profile button[type="submit"] {
+    width: 200px;
+    background-color: #0079d3;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 10px;
+    text-transform: uppercase;
+  }
+  
+  .update-user-profile button[type="submit"]:hover {
+    background-color: #005ea6;
+  }
+
+  *:focus {
+    outline: none;
+  }
+  
